@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0zoo30q" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="event_timer_start" name="event_timer_start" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_090bznm</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0ef69bz">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_090bznm" sourceRef="StartEvent_1" targetRef="WatchTask" />
+    <bpmn:endEvent id="Event_13bby2d">
+      <bpmn:incoming>Flow_0cftz8u</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0cftz8u" sourceRef="WatchTask" targetRef="Event_13bby2d" />
+    <bpmn:userTask id="WatchTask" name="Watch">
+      <bpmn:incoming>Flow_090bznm</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cftz8u</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:textAnnotation id="TextAnnotation_0s9hk97">
+      <bpmn:text>Starts the process in 1 minute after deploy</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_04y9sek" sourceRef="StartEvent_1" targetRef="TextAnnotation_0s9hk97" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="event_timer_start">
+      <bpmndi:BPMNShape id="TextAnnotation_0s9hk97_di" bpmnElement="TextAnnotation_0s9hk97">
+        <dc:Bounds x="160" y="200" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_090bznm_di" bpmnElement="Flow_090bznm">
+        <di:waypoint x="285" y="117" />
+        <di:waypoint x="340" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cftz8u_di" bpmnElement="Flow_0cftz8u">
+        <di:waypoint x="440" y="117" />
+        <di:waypoint x="502" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0q0r1k1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="249" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13bby2d_di" bpmnElement="Event_13bby2d">
+        <dc:Bounds x="502" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1szly2q_di" bpmnElement="WatchTask">
+        <dc:Bounds x="340" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_04y9sek_di" bpmnElement="Association_04y9sek">
+        <di:waypoint x="258" y="132" />
+        <di:waypoint x="219" y="200" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1ykxeik" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="event_conditional" name="event_conditional" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_12ur75l</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_12ur75l" sourceRef="StartEvent_1" targetRef="Gateway_1x7hfb7" />
+    <bpmn:endEvent id="Event_0aevm6n">
+      <bpmn:incoming>Flow_0qbp3wn</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0qbp3wn" sourceRef="CallAndConfirmTask" targetRef="Event_0aevm6n" />
+    <bpmn:sequenceFlow id="Flow_1540ccb" sourceRef="Event_01vs94g" targetRef="SendTheFoodTask" />
+    <bpmn:endEvent id="Event_1anlicf">
+      <bpmn:incoming>Flow_0gw7qa2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0gw7qa2" sourceRef="SendTheFoodTask" targetRef="Event_1anlicf" />
+    <bpmn:eventBasedGateway id="Gateway_1x7hfb7">
+      <bpmn:incoming>Flow_12ur75l</bpmn:incoming>
+      <bpmn:outgoing>Flow_04nidra</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1w345ao</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateCatchEvent id="Event_01vs94g">
+      <bpmn:incoming>Flow_04nidra</bpmn:incoming>
+      <bpmn:outgoing>Flow_1540ccb</bpmn:outgoing>
+      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_14k90v0">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression">${isConfirm=="yes"}</bpmn:condition>
+      </bpmn:conditionalEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_04nidra" sourceRef="Gateway_1x7hfb7" targetRef="Event_01vs94g" />
+    <bpmn:intermediateCatchEvent id="Event_01ij5cp">
+      <bpmn:incoming>Flow_1w345ao</bpmn:incoming>
+      <bpmn:outgoing>Flow_1p7lk65</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_14ma09q">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1w345ao" sourceRef="Gateway_1x7hfb7" targetRef="Event_01ij5cp" />
+    <bpmn:sequenceFlow id="Flow_1p7lk65" sourceRef="Event_01ij5cp" targetRef="CallAndConfirmTask" />
+    <bpmn:userTask id="CallAndConfirmTask" name="Call and confirm">
+      <bpmn:incoming>Flow_1p7lk65</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qbp3wn</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="SendTheFoodTask" name="Send the food">
+      <bpmn:incoming>Flow_1540ccb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gw7qa2</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="event_conditional">
+      <bpmndi:BPMNEdge id="Flow_12ur75l_di" bpmnElement="Flow_12ur75l">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="265" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qbp3wn_di" bpmnElement="Flow_0qbp3wn">
+        <di:waypoint x="570" y="117" />
+        <di:waypoint x="632" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1540ccb_di" bpmnElement="Flow_1540ccb">
+        <di:waypoint x="308" y="230" />
+        <di:waypoint x="470" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gw7qa2_di" bpmnElement="Flow_0gw7qa2">
+        <di:waypoint x="570" y="230" />
+        <di:waypoint x="632" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04nidra_di" bpmnElement="Flow_04nidra">
+        <di:waypoint x="290" y="142" />
+        <di:waypoint x="290" y="212" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w345ao_di" bpmnElement="Flow_1w345ao">
+        <di:waypoint x="315" y="117" />
+        <di:waypoint x="372" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1p7lk65_di" bpmnElement="Flow_1p7lk65">
+        <di:waypoint x="408" y="117" />
+        <di:waypoint x="470" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1anlicf_di" bpmnElement="Event_1anlicf">
+        <dc:Bounds x="632" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0eksran_di" bpmnElement="Gateway_1x7hfb7">
+        <dc:Bounds x="265" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01ij5cp_di" bpmnElement="Event_01ij5cp">
+        <dc:Bounds x="372" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0aevm6n_di" bpmnElement="Event_0aevm6n">
+        <dc:Bounds x="632" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0mhk9he_di" bpmnElement="Event_01vs94g">
+        <dc:Bounds x="272" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kbwcm8_di" bpmnElement="CallAndConfirmTask">
+        <dc:Bounds x="470" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_187q54q_di" bpmnElement="SendTheFoodTask">
+        <dc:Bounds x="470" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

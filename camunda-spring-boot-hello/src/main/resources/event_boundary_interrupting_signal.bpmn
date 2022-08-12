@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_04yp287" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="event_boundary_interrupting_signal" name="event_boundary_interrupting_signal" isExecutable="true" camunda:versionTag="v2.0">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData businessKey="name">
+          <camunda:formField id="name" label="name" type="string" defaultValue="John" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_11qmrbj</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_11qmrbj" sourceRef="StartEvent_1" targetRef="PrepareGroceryListTask" />
+    <bpmn:sequenceFlow id="Flow_0ycwcjt" sourceRef="PrepareGroceryListTask" targetRef="PurchaseProductFromShopATask" />
+    <bpmn:sequenceFlow id="Flow_1kieb0c" sourceRef="PurchaseProductFromShopATask" targetRef="PurchaseProductFromShopBTask" />
+    <bpmn:endEvent id="Event_1j06jov">
+      <bpmn:incoming>Flow_1b3dy4w</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1b3dy4w" sourceRef="PurchaseProductFromShopBTask" targetRef="Event_1j06jov" />
+    <bpmn:boundaryEvent id="Event_0ipezl3" attachedToRef="PurchaseProductFromShopATask">
+      <bpmn:outgoing>Flow_10qxgoi</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_139wm5t" signalRef="Signal_3th6707" />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_10qxgoi" sourceRef="Event_0ipezl3" targetRef="StayHomeForFewDaysTask" />
+    <bpmn:sequenceFlow id="Flow_1005o6h" sourceRef="StayHomeForFewDaysTask" targetRef="DoFunActivitiesAtHomeTask" />
+    <bpmn:endEvent id="Event_00xc69x">
+      <bpmn:incoming>Flow_03f40fv</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_03f40fv" sourceRef="DoFunActivitiesAtHomeTask" targetRef="Event_00xc69x" />
+    <bpmn:scriptTask id="PrepareGroceryListTask" name="Prepare Grocery List" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_11qmrbj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ycwcjt</bpmn:outgoing>
+      <bpmn:script>var item1 = "Sugar";
+var item2 = "Coffee";
+execution.setVariable("item1", item1);
+execution.setVariable("item2", item2);</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:userTask id="PurchaseProductFromShopATask" name="Purchase product from Shop A">
+      <bpmn:incoming>Flow_0ycwcjt</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kieb0c</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="PurchaseProductFromShopBTask" name="Purchase product from Shop B">
+      <bpmn:incoming>Flow_1kieb0c</bpmn:incoming>
+      <bpmn:outgoing>Flow_1b3dy4w</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:scriptTask id="StayHomeForFewDaysTask" name="Stay home for few days" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_10qxgoi</bpmn:incoming>
+      <bpmn:outgoing>Flow_1005o6h</bpmn:outgoing>
+      <bpmn:script></bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:userTask id="DoFunActivitiesAtHomeTask" name="Do fun activities at home">
+      <bpmn:incoming>Flow_1005o6h</bpmn:incoming>
+      <bpmn:outgoing>Flow_03f40fv</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:textAnnotation id="TextAnnotation_02gj2cm">
+      <bpmn:text>Police broadcasted "HIGH ALERT" Go home signal to all</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0vg4ou3" sourceRef="Event_0ipezl3" targetRef="TextAnnotation_02gj2cm" />
+  </bpmn:process>
+  <bpmn:signal id="Signal_3th6707" name="GoHomeAlert" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="event_boundary_interrupting_signal">
+      <bpmndi:BPMNShape id="TextAnnotation_02gj2cm_di" bpmnElement="TextAnnotation_02gj2cm">
+        <dc:Bounds x="280" y="220" width="100" height="84" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_11qmrbj_di" bpmnElement="Flow_11qmrbj">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ycwcjt_di" bpmnElement="Flow_0ycwcjt">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kieb0c_di" bpmnElement="Flow_1kieb0c">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1b3dy4w_di" bpmnElement="Flow_1b3dy4w">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="752" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10qxgoi_di" bpmnElement="Flow_10qxgoi">
+        <di:waypoint x="480" y="175" />
+        <di:waypoint x="480" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1005o6h_di" bpmnElement="Flow_1005o6h">
+        <di:waypoint x="530" y="270" />
+        <di:waypoint x="590" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03f40fv_di" bpmnElement="Flow_03f40fv">
+        <di:waypoint x="690" y="270" />
+        <di:waypoint x="752" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1j06jov_di" bpmnElement="Event_1j06jov">
+        <dc:Bounds x="752" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_00xc69x_di" bpmnElement="Event_00xc69x">
+        <dc:Bounds x="752" y="252" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vjau1t_di" bpmnElement="PrepareGroceryListTask">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05ext1l_di" bpmnElement="PurchaseProductFromShopATask">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08u0xz6_di" bpmnElement="PurchaseProductFromShopBTask">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ceiv5j_di" bpmnElement="StayHomeForFewDaysTask">
+        <dc:Bounds x="430" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0d8r22m_di" bpmnElement="DoFunActivitiesAtHomeTask">
+        <dc:Bounds x="590" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0vg4ou3_di" bpmnElement="Association_0vg4ou3">
+        <di:waypoint x="464" y="165" />
+        <di:waypoint x="359" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0nd8cpz_di" bpmnElement="Event_0ipezl3">
+        <dc:Bounds x="462" y="139" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1ma0t9b" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="event_boundary_non_interrupting_process" name="event_boundary_non_interrupting" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1ikgxr7</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1ikgxr7" sourceRef="StartEvent_1" targetRef="LoginToTheBankTask" />
+    <bpmn:sequenceFlow id="Flow_1itcrpk" sourceRef="LoginToTheBankTask" targetRef="DoFundTransferTask" />
+    <bpmn:endEvent id="Event_07ksy99">
+      <bpmn:incoming>Flow_1g7jrtj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1g7jrtj" sourceRef="Event_0uxp8za" targetRef="Event_07ksy99" />
+    <bpmn:sequenceFlow id="Flow_1yxwxje" sourceRef="DoFundTransferTask" targetRef="CheckAccountStatementTask" />
+    <bpmn:sequenceFlow id="Flow_04su3dl" sourceRef="Event_0toquv5" targetRef="ProvideFeedbackTask" />
+    <bpmn:endEvent id="Event_1eval8i">
+      <bpmn:incoming>Flow_00unshp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_00unshp" sourceRef="ProvideFeedbackTask" targetRef="Event_1eval8i" />
+    <bpmn:scriptTask id="LoginToTheBankTask" name="Login to the bank" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_1ikgxr7</bpmn:incoming>
+      <bpmn:outgoing>Flow_1itcrpk</bpmn:outgoing>
+      <bpmn:script>var name = "Arindam";
+execution.setVariable("name", name);</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:userTask id="DoFundTransferTask" name="Do fund transfer">
+      <bpmn:incoming>Flow_1itcrpk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1yxwxje</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ProvideFeedbackTask" name="Provide feedback">
+      <bpmn:incoming>Flow_04su3dl</bpmn:incoming>
+      <bpmn:outgoing>Flow_00unshp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_08rmzyp" sourceRef="CheckAccountStatementTask" targetRef="Event_0uxp8za" />
+    <bpmn:intermediateCatchEvent id="Event_0uxp8za">
+      <bpmn:incoming>Flow_08rmzyp</bpmn:incoming>
+      <bpmn:outgoing>Flow_1g7jrtj</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0zggqap">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:userTask id="CheckAccountStatementTask" name="Check account statement">
+      <bpmn:incoming>Flow_1yxwxje</bpmn:incoming>
+      <bpmn:outgoing>Flow_08rmzyp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:boundaryEvent id="Event_0toquv5" cancelActivity="false" attachedToRef="DoFundTransferTask">
+      <bpmn:outgoing>Flow_04su3dl</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_17j6oz6">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:textAnnotation id="TextAnnotation_1k4nmcq">
+      <bpmn:text>If user seats idle for 1 min, this timer will called without interrupting the main token flow</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_10kr220" sourceRef="Event_0toquv5" targetRef="TextAnnotation_1k4nmcq" />
+    <bpmn:textAnnotation id="TextAnnotation_0548os1">
+      <bpmn:text>Just waits for 1 min</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_07wbh2g" sourceRef="Event_0uxp8za" targetRef="TextAnnotation_0548os1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="event_boundary_non_interrupting_process">
+      <bpmndi:BPMNEdge id="Flow_08rmzyp_di" bpmnElement="Flow_08rmzyp">
+        <di:waypoint x="810" y="187" />
+        <di:waypoint x="912" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00unshp_di" bpmnElement="Flow_00unshp">
+        <di:waypoint x="690" y="310" />
+        <di:waypoint x="742" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04su3dl_di" bpmnElement="Flow_04su3dl">
+        <di:waypoint x="520" y="245" />
+        <di:waypoint x="520" y="310" />
+        <di:waypoint x="590" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1yxwxje_di" bpmnElement="Flow_1yxwxje">
+        <di:waypoint x="540" y="187" />
+        <di:waypoint x="710" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g7jrtj_di" bpmnElement="Flow_1g7jrtj">
+        <di:waypoint x="948" y="187" />
+        <di:waypoint x="1062" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1itcrpk_di" bpmnElement="Flow_1itcrpk">
+        <di:waypoint x="370" y="187" />
+        <di:waypoint x="440" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ikgxr7_di" bpmnElement="Flow_1ikgxr7">
+        <di:waypoint x="215" y="187" />
+        <di:waypoint x="270" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="169" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07ksy99_di" bpmnElement="Event_07ksy99">
+        <dc:Bounds x="1062" y="169" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1eval8i_di" bpmnElement="Event_1eval8i">
+        <dc:Bounds x="742" y="292" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01nht4q_di" bpmnElement="LoginToTheBankTask">
+        <dc:Bounds x="270" y="147" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0frswcd_di" bpmnElement="DoFundTransferTask">
+        <dc:Bounds x="440" y="147" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1t3x4lb_di" bpmnElement="ProvideFeedbackTask">
+        <dc:Bounds x="590" y="270" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_16e7hxp_di" bpmnElement="Event_0uxp8za">
+        <dc:Bounds x="912" y="169" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yhfb58_di" bpmnElement="CheckAccountStatementTask">
+        <dc:Bounds x="710" y="147" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1k4nmcq_di" bpmnElement="TextAnnotation_1k4nmcq">
+        <dc:Bounds x="340" y="300" width="100" height="98" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0548os1_di" bpmnElement="TextAnnotation_0548os1">
+        <dc:Bounds x="950" y="80" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_10kr220_di" bpmnElement="Association_10kr220">
+        <di:waypoint x="505" y="237" />
+        <di:waypoint x="412" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_07wbh2g_di" bpmnElement="Association_07wbh2g">
+        <di:waypoint x="941" y="173" />
+        <di:waypoint x="980" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0bjjq13_di" bpmnElement="Event_0toquv5">
+        <dc:Bounds x="502" y="209" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
