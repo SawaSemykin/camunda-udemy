@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0exhi3c" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="task" name="task" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:startEvent id="OrderReceivedStartEvent" name="Order received">
+      <bpmn:outgoing>Flow_03vw51h</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_03vw51h" sourceRef="OrderReceivedStartEvent" targetRef="ReceiveOrderTask" />
+    <bpmn:sequenceFlow id="Flow_1dzw2h2" sourceRef="ReceiveOrderTask" targetRef="ValidateOrderTask" />
+    <bpmn:sequenceFlow id="Flow_1lurger" sourceRef="ValidateOrderTask" targetRef="ShipTheOrderTask" />
+    <bpmn:endEvent id="OrderShippedEndEvent" name="Order shipped">
+      <bpmn:incoming>Flow_1pgm06f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1pgm06f" sourceRef="ShipTheOrderTask" targetRef="OrderShippedEndEvent" />
+    <bpmn:scriptTask id="ReceiveOrderTask" name="Receive Order" scriptFormat="JavaScript" camunda:resource="scripts/tast_external_script.js">
+      <bpmn:incoming>Flow_03vw51h</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dzw2h2</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:serviceTask id="ValidateOrderTask" name="Validate Order" camunda:class="ru.sawasemykin.service.OrderValidatorDelegate">
+      <bpmn:incoming>Flow_1dzw2h2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lurger</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ShipTheOrderTask" name="Ship the Order">
+      <bpmn:incoming>Flow_1lurger</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pgm06f</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="task">
+      <bpmndi:BPMNEdge id="Flow_03vw51h_di" bpmnElement="Flow_03vw51h">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dzw2h2_di" bpmnElement="Flow_1dzw2h2">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lurger_di" bpmnElement="Flow_1lurger">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pgm06f_di" bpmnElement="Flow_1pgm06f">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="752" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="OrderReceivedStartEvent">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="161" y="142" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ljpy4f_di" bpmnElement="OrderShippedEndEvent">
+        <dc:Bounds x="752" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="735" y="142" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hng217_di" bpmnElement="ReceiveOrderTask">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_195ssc8_di" bpmnElement="ValidateOrderTask">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_13o2313_di" bpmnElement="ShipTheOrderTask">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

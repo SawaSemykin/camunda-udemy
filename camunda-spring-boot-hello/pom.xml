@@ -121,6 +121,12 @@
 
     <!-- Add your own dependencies here, if in compile scope, they are added to the jar -->
 
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+<!--      <version>1.18.24</version>-->
+    </dependency>
+
     <!-- JAXB -->
     <dependency>
       <groupId>javax.xml.bind</groupId>
