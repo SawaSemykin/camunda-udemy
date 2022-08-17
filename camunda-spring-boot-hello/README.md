@@ -1,6 +1,7 @@
 # TODO
-1. event_non_interrupting_excalation.bpmn Не пробрасываются переменные если для таски Validate and Ship order добавить Generated Task Forms с полем shippingDays.
+1. event_non_interrupting_escalation.bpmn Не пробрасываются переменные если для таски Validate and Ship order добавить Generated Task Forms с полем shippingDays.
 Сейчас нужно добавить эту переменную через ui tasklist.
+   2. :white_check_mark: Обновил camunda modeler до версии 5.2.0. Проблема ушла.
 2. 
 
 # Camunda Spring Boot Application

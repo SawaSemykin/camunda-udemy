@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_10o8osb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.1.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_10o8osb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
   <bpmn:process id="event_non_interrupting_escalation" name="event_non_interrupting_escalation" isExecutable="true" camunda:versionTag="v1.0">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:extensionElements>
@@ -54,6 +54,11 @@ execution.setVariable("orderStatus", orderStatus);</bpmn:script>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1f4r9fp" sourceRef="Activity_1w6o6zw" targetRef="Gateway_1evf7bo" />
       <bpmn:userTask id="Activity_1w6o6zw" name="Validate and Ship order">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="shippingDays" label="Shipping days" type="long" defaultValue="5" />
+          </camunda:formData>
+        </bpmn:extensionElements>
         <bpmn:incoming>Flow_00asod8</bpmn:incoming>
         <bpmn:outgoing>Flow_1f4r9fp</bpmn:outgoing>
       </bpmn:userTask>
@@ -139,6 +144,10 @@ execution.setVariable("orderStatus", orderStatus);</bpmn:script>
       <bpmndi:BPMNShape id="Activity_0421osk_di" bpmnElement="Activity_0421osk" isExpanded="true">
         <dc:Bounds x="290" y="77" width="690" height="383" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1f4r9fp_di" bpmnElement="Flow_1f4r9fp">
+        <di:waypoint x="510" y="177" />
+        <di:waypoint x="575" y="177" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1h3jj23_di" bpmnElement="Flow_1h3jj23">
         <di:waypoint x="625" y="177" />
         <di:waypoint x="720" y="177" />
@@ -174,10 +183,6 @@ execution.setVariable("orderStatus", orderStatus);</bpmn:script>
       <bpmndi:BPMNEdge id="Flow_00asod8_di" bpmnElement="Flow_00asod8">
         <di:waypoint x="366" y="177" />
         <di:waypoint x="410" y="177" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1f4r9fp_di" bpmnElement="Flow_1f4r9fp">
-        <di:waypoint x="510" y="177" />
-        <di:waypoint x="575" y="177" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1v214vk_di" bpmnElement="Event_1v214vk">
         <dc:Bounds x="330" y="159" width="36" height="36" />
