@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0bx2p2a" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:collaboration id="Collaboration_1y10h70">
+    <bpmn:documentation>Multiple pools are used to keep big picture of the process with collaborations beetween other systems. Only one pool should be executable.</bpmn:documentation>
+    <bpmn:participant id="Participant_0trpgc1" name="AT&#38;T Thirdparty Portal" processRef="Process_17ts7co" />
+    <bpmn:participant id="Participant_1c9wojy" name="Message Broker Kafka" />
+    <bpmn:participant id="Participant_0e9c3u8" name="AT&#38;T" />
+    <bpmn:messageFlow id="Flow_0j8eibe" name="Message flow" sourceRef="Activity_0w3adxn" targetRef="Participant_1c9wojy" />
+    <bpmn:messageFlow id="Flow_1eny0fr" sourceRef="Participant_1c9wojy" targetRef="Activity_1x2ykbi" />
+    <bpmn:messageFlow id="Flow_05u00ch" sourceRef="Participant_0e9c3u8" targetRef="Participant_1c9wojy" />
+    <bpmn:messageFlow id="Flow_0sltlzr" sourceRef="Participant_1c9wojy" targetRef="Participant_0e9c3u8" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_17ts7co" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Order initiated">
+      <bpmn:outgoing>Flow_13fyorm</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_1u9lfcq" name="Order completed">
+      <bpmn:incoming>Flow_0w9zkym</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sendTask id="Activity_0w3adxn" name="Send REST request">
+      <bpmn:incoming>Flow_13fyorm</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r1wela</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:receiveTask id="Activity_1x2ykbi" name="Receive Kafka message">
+      <bpmn:incoming>Flow_0r1wela</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w9zkym</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:sequenceFlow id="Flow_13fyorm" sourceRef="StartEvent_1" targetRef="Activity_0w3adxn" />
+    <bpmn:sequenceFlow id="Flow_0r1wela" sourceRef="Activity_0w3adxn" targetRef="Activity_1x2ykbi" />
+    <bpmn:sequenceFlow id="Flow_0w9zkym" sourceRef="Activity_1x2ykbi" targetRef="Event_1u9lfcq" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1y10h70">
+      <bpmndi:BPMNShape id="Participant_0trpgc1_di" bpmnElement="Participant_0trpgc1" isHorizontal="true">
+        <dc:Bounds x="160" y="52" width="600" height="250" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_13fyorm_di" bpmnElement="Flow_13fyorm">
+        <di:waypoint x="275" y="177" />
+        <di:waypoint x="330" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r1wela_di" bpmnElement="Flow_0r1wela">
+        <di:waypoint x="430" y="177" />
+        <di:waypoint x="490" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w9zkym_di" bpmnElement="Flow_0w9zkym">
+        <di:waypoint x="590" y="177" />
+        <di:waypoint x="652" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="239" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="222" y="202" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1u9lfcq_di" bpmnElement="Event_1u9lfcq">
+        <dc:Bounds x="652" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="629" y="202" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ms3f8a_di" bpmnElement="Activity_0w3adxn">
+        <dc:Bounds x="330" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mhlzfl_di" bpmnElement="Activity_1x2ykbi">
+        <dc:Bounds x="490" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0rtmb73_di" bpmnElement="Participant_1c9wojy" isHorizontal="true">
+        <dc:Bounds x="160" y="400" width="600" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_10th713_di" bpmnElement="Participant_0e9c3u8" isHorizontal="true">
+        <dc:Bounds x="160" y="550" width="600" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0j8eibe_di" bpmnElement="Flow_0j8eibe">
+        <di:waypoint x="380" y="217" />
+        <di:waypoint x="380" y="400" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="396" y="323" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eny0fr_di" bpmnElement="Flow_1eny0fr">
+        <di:waypoint x="540" y="400" />
+        <di:waypoint x="540" y="217" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05u00ch_di" bpmnElement="Flow_05u00ch">
+        <di:waypoint x="590" y="550" />
+        <di:waypoint x="590" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sltlzr_di" bpmnElement="Flow_0sltlzr">
+        <di:waypoint x="300" y="460" />
+        <di:waypoint x="300" y="550" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

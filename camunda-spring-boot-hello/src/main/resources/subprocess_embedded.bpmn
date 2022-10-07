@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hf6odh" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="subprocess_embedded" name="subprocess_embedded" isExecutable="true" camunda:versionTag="v1.0">
+    <bpmn:startEvent id="StartEvent_1" name="Order mgmt started">
+      <bpmn:outgoing>Flow_0ipsey6</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0ipsey6" sourceRef="StartEvent_1" targetRef="Activity_123r59d" />
+    <bpmn:subProcess id="Activity_1xqbflb">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderType">${orderType}</camunda:inputParameter>
+          <camunda:outputParameter name="isValidated">${isValidated}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1h4szzq</bpmn:incoming>
+      <bpmn:outgoing>Flow_01hxf58</bpmn:outgoing>
+      <bpmn:startEvent id="Event_0mslo6k">
+        <bpmn:outgoing>Flow_12ur28z</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_12ur28z" sourceRef="Event_0mslo6k" targetRef="Activity_0xa8gxx" />
+      <bpmn:userTask id="Activity_0xa8gxx" name="Validate order" camunda:assignee="demo">
+        <bpmn:incoming>Flow_12ur28z</bpmn:incoming>
+        <bpmn:outgoing>Flow_14utpwv</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:endEvent id="Event_0wg2dsl">
+        <bpmn:incoming>Flow_14utpwv</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_14utpwv" sourceRef="Activity_0xa8gxx" targetRef="Event_0wg2dsl" />
+      <bpmn:textAnnotation id="TextAnnotation_1bgyznr">
+        <bpmn:text>Define isValidated variable</bpmn:text>
+      </bpmn:textAnnotation>
+      <bpmn:association id="Association_19n1vhm" sourceRef="Activity_0xa8gxx" targetRef="TextAnnotation_1bgyznr" />
+    </bpmn:subProcess>
+    <bpmn:sequenceFlow id="Flow_1h4szzq" sourceRef="Activity_123r59d" targetRef="Activity_1xqbflb" />
+    <bpmn:exclusiveGateway id="Gateway_1ehy8x2" default="Flow_1t4vldu">
+      <bpmn:incoming>Flow_01hxf58</bpmn:incoming>
+      <bpmn:outgoing>Flow_09k8chw</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1t4vldu</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_01hxf58" sourceRef="Activity_1xqbflb" targetRef="Gateway_1ehy8x2" />
+    <bpmn:sequenceFlow id="Flow_09k8chw" sourceRef="Gateway_1ehy8x2" targetRef="Activity_0stdl83">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isValidated == "yes"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1t4vldu" sourceRef="Gateway_1ehy8x2" targetRef="Activity_0qos30s" />
+    <bpmn:endEvent id="Event_1lza86u" name="Order cancelled">
+      <bpmn:incoming>Flow_0i2g0c8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0i2g0c8" sourceRef="Activity_0qos30s" targetRef="Event_1lza86u" />
+    <bpmn:endEvent id="Event_139xsmw" name="Order shipped">
+      <bpmn:incoming>Flow_0w6a3e8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0w6a3e8" sourceRef="Activity_0stdl83" targetRef="Event_139xsmw" />
+    <bpmn:userTask id="Activity_123r59d" name="Place order" camunda:assignee="demo">
+      <bpmn:incoming>Flow_0ipsey6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1h4szzq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0stdl83" name="Ship the order" camunda:assignee="demo">
+      <bpmn:incoming>Flow_09k8chw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w6a3e8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_0qos30s" name="Cancel order" camunda:assignee="demo">
+      <bpmn:incoming>Flow_1t4vldu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0i2g0c8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:textAnnotation id="TextAnnotation_1heuwec">
+      <bpmn:text>Define orderType variable</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_02bu96k" sourceRef="Activity_123r59d" targetRef="TextAnnotation_1heuwec" />
+    <bpmn:textAnnotation id="TextAnnotation_1fx3jf4">
+      <bpmn:text>Embedded sub process. It validates order</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0n4m0mr" sourceRef="Activity_1xqbflb" targetRef="TextAnnotation_1fx3jf4" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="subprocess_embedded">
+      <bpmndi:BPMNShape id="TextAnnotation_1heuwec_di" bpmnElement="TextAnnotation_1heuwec">
+        <dc:Bounds x="240" y="120" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1fx3jf4_di" bpmnElement="TextAnnotation_1fx3jf4">
+        <dc:Bounds x="860" y="80" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ipsey6_di" bpmnElement="Flow_0ipsey6">
+        <di:waypoint x="215" y="287" />
+        <di:waypoint x="270" y="287" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1h4szzq_di" bpmnElement="Flow_1h4szzq">
+        <di:waypoint x="370" y="287" />
+        <di:waypoint x="440" y="287" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01hxf58_di" bpmnElement="Flow_01hxf58">
+        <di:waypoint x="790" y="285" />
+        <di:waypoint x="865" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09k8chw_di" bpmnElement="Flow_09k8chw">
+        <di:waypoint x="915" y="285" />
+        <di:waypoint x="990" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1t4vldu_di" bpmnElement="Flow_1t4vldu">
+        <di:waypoint x="890" y="310" />
+        <di:waypoint x="890" y="400" />
+        <di:waypoint x="990" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i2g0c8_di" bpmnElement="Flow_0i2g0c8">
+        <di:waypoint x="1090" y="400" />
+        <di:waypoint x="1172" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w6a3e8_di" bpmnElement="Flow_0w6a3e8">
+        <di:waypoint x="1090" y="285" />
+        <di:waypoint x="1172" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="269" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="168" y="312" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ehy8x2_di" bpmnElement="Gateway_1ehy8x2" isMarkerVisible="true">
+        <dc:Bounds x="865" y="260" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1lza86u_di" bpmnElement="Event_1lza86u">
+        <dc:Bounds x="1172" y="382" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1151" y="425" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_139xsmw_di" bpmnElement="Event_139xsmw">
+        <dc:Bounds x="1172" y="267" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1155" y="310" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dnbms4_di" bpmnElement="Activity_123r59d">
+        <dc:Bounds x="270" y="247" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16z6rka_di" bpmnElement="Activity_0stdl83">
+        <dc:Bounds x="990" y="245" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qirhqq_di" bpmnElement="Activity_0qos30s">
+        <dc:Bounds x="990" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xqbflb_di" bpmnElement="Activity_1xqbflb" isExpanded="true">
+        <dc:Bounds x="440" y="100" width="350" height="290" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1bgyznr_di" bpmnElement="TextAnnotation_1bgyznr">
+        <dc:Bounds x="670" y="160" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_12ur28z_di" bpmnElement="Flow_12ur28z">
+        <di:waypoint x="518" y="287" />
+        <di:waypoint x="570" y="287" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14utpwv_di" bpmnElement="Flow_14utpwv">
+        <di:waypoint x="670" y="287" />
+        <di:waypoint x="722" y="287" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0mslo6k_di" bpmnElement="Event_0mslo6k">
+        <dc:Bounds x="482" y="269" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1slkjy1_di" bpmnElement="Activity_0xa8gxx">
+        <dc:Bounds x="570" y="247" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0wg2dsl_di" bpmnElement="Event_0wg2dsl">
+        <dc:Bounds x="722" y="269" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_19n1vhm_di" bpmnElement="Association_19n1vhm">
+        <di:waypoint x="656" y="247" />
+        <di:waypoint x="684" y="215" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_02bu96k_di" bpmnElement="Association_02bu96k">
+        <di:waypoint x="312" y="247" />
+        <di:waypoint x="298" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0n4m0mr_di" bpmnElement="Association_0n4m0mr">
+        <di:waypoint x="790" y="172" />
+        <di:waypoint x="860" y="127" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
