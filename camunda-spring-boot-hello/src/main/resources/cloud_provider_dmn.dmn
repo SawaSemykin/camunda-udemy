@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="cloud_provider_dmn" name="cloud_provider_dmn" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <decision id="cloud_provider_dmn_key" name="Cloud provider dmn" camunda:versionTag="v1">
+    <decisionTable id="DecisionTable_19ijxfb">
+      <input id="InputClause_0jbdnoh" label="provider" camunda:inputVariable="provider">
+        <inputExpression id="LiteralExpression_00rhmd5" typeRef="string" />
+      </input>
+      <input id="InputClause_1ybzpqb" label="edition" camunda:inputVariable="edition">
+        <inputExpression id="LiteralExpression_1h0hzep" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_15ylcqa" name="cost" typeRef="integer" />
+      <rule id="DecisionRule_1hkiffp">
+        <inputEntry id="UnaryTests_01riaw6">
+          <text>"AWS"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ay6l1k">
+          <text>"Enterprise"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vpqx4c">
+          <text>1000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cf35hm">
+        <inputEntry id="UnaryTests_1144tcb">
+          <text>"AWS"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17ga5hc">
+          <text>"Community"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03tfejj">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qt6g2z">
+        <inputEntry id="UnaryTests_0yy5eop">
+          <text>"GCP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17vwsvo">
+          <text>"Enterprise"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0omih8f">
+          <text>900</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qoigph">
+        <inputEntry id="UnaryTests_0eiir0t">
+          <text>"GCP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xxudhm">
+          <text>"Community"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1td6c1q">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_1fuqmvi" dmnElementRef="cloud_provider_dmn_key">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
