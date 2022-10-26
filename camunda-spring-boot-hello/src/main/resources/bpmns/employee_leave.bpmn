@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_079kiui" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="employee_leave" name="employee_leave" isExecutable="true" camunda:versionTag="v1">
+    <bpmn:startEvent id="StartEvent_1" name="Process started">
+      <bpmn:outgoing>Flow_1t80k9g</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1t80k9g" sourceRef="StartEvent_1" targetRef="Activity_0yyn1i9" />
+    <bpmn:sequenceFlow id="Flow_16v1jmy" sourceRef="Activity_0yyn1i9" targetRef="Activity_1hygwas" />
+    <bpmn:endEvent id="Event_1snvniq" name="Process ended">
+      <bpmn:incoming>Flow_1hssw2l</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1hssw2l" sourceRef="Activity_1hygwas" targetRef="Event_1snvniq" />
+    <bpmn:userTask id="Activity_0yyn1i9" name="Apply Leave" camunda:assignee="demo">
+      <bpmn:incoming>Flow_1t80k9g</bpmn:incoming>
+      <bpmn:outgoing>Flow_16v1jmy</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1hygwas" name="Approve Leave" camunda:assignee="demo">
+      <bpmn:incoming>Flow_16v1jmy</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hssw2l</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="employee_leave">
+      <bpmndi:BPMNEdge id="Flow_1t80k9g_di" bpmnElement="Flow_1t80k9g">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16v1jmy_di" bpmnElement="Flow_16v1jmy">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hssw2l_di" bpmnElement="Flow_1hssw2l">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="142" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1snvniq_di" bpmnElement="Event_1snvniq">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="573" y="142" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02t3awu_di" bpmnElement="Activity_0yyn1i9">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1efnutn_di" bpmnElement="Activity_1hygwas">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
