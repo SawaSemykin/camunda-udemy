@@ -6,10 +6,7 @@ import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.engine.test.mock.Mocks;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
 import static org.junit.Assert.*;
@@ -45,4 +42,18 @@ public class InMemoryH2Test {
     assertThat(processInstance).isEnded();
   }
 
+  @Test
+  @Deployment(resources = "bpmns/ruf-noind-contragents-limit.bpmn")
+  public void parseAndDeploymentTest() {
+  }
+
+//  @Test
+//  @Deployment(resources = "bpmns/ruf-noind-contragents-limit-decision.dmn")
+//  public void parseAndDeploymentTest2() {
+//  }
+//
+//  @Test
+//  @Deployment(resources = "dmns/f-pa-enter-no-ind-limit-calculation-decision.dmn")
+//  public void parseAndDeploymentTest3() {
+//  }
 }

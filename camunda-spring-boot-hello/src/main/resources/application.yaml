@@ -4,6 +4,7 @@ spring.datasource:
   username: sa
   password: sa
 spring.h2.console.enabled: true
+spring.h2.console.path: /h2/h2
 camunda.bpm:
   admin-user:
     id: demo

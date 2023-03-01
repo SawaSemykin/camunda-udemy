@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1pxo3vv" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="noind_dmn_caller" name="noind_dmn_caller" isExecutable="true" camunda:versionTag="v1">
+    <bpmn:startEvent id="StartEvent_1" name="Process started">
+      <bpmn:outgoing>Flow_0q9bagp</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0q9bagp" sourceRef="StartEvent_1" targetRef="Activity_003mzm8" />
+    <bpmn:endEvent id="Event_0iybdpq" name="Process ended">
+      <bpmn:incoming>Flow_0kmzwo6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0kmzwo6" sourceRef="Activity_0ovu8zc" targetRef="Event_0iybdpq" />
+    <bpmn:serviceTask id="Activity_0ovu8zc" name="log result" camunda:delegateExpression="${noindResultLogService}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="docTypeNameList">
+            <camunda:list>
+              <camunda:value>commercialOffer</camunda:value>
+              <camunda:value>afinDoc</camunda:value>
+              <camunda:value>agreementJoining</camunda:value>
+            </camunda:list>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_06au7fw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kmzwo6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0n5myat" sourceRef="Activity_003mzm8" targetRef="Activity_1exs7vf" />
+    <bpmn:userTask id="Activity_003mzm8" name="Input contragent_category" camunda:assignee="demo">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0q9bagp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n5myat</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_06au7fw" sourceRef="Activity_1exs7vf" targetRef="Activity_0ovu8zc" />
+    <bpmn:callActivity id="Activity_1exs7vf" name="Define contragent limit" calledElement="ruf-noind-contragents-limit">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="product-type">Light</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:out source="resultMap" target="resultMap" />
+        <camunda:in source="contragent-category" target="contragent-category" />
+        <camunda:in source="product-type" target="product-type" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0n5myat</bpmn:incoming>
+      <bpmn:outgoing>Flow_06au7fw</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:textAnnotation id="TextAnnotation_1ug2cdw">
+      <bpmn:text>define contragent_category</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_001ljfj" sourceRef="Activity_003mzm8" targetRef="TextAnnotation_1ug2cdw" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="noind_dmn_caller">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="132" y="202" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0iybdpq_di" bpmnElement="Event_0iybdpq">
+        <dc:Bounds x="1062" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1043" y="202" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ntr37n_di" bpmnElement="Activity_0ovu8zc">
+        <dc:Bounds x="890" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1w2jjo5_di" bpmnElement="Activity_003mzm8">
+        <dc:Bounds x="230" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17e66hs_di" bpmnElement="Activity_1exs7vf">
+        <dc:Bounds x="590" y="137" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1ug2cdw_di" bpmnElement="TextAnnotation_1ug2cdw">
+        <dc:Bounds x="330" y="50" width="135" height="46" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0q9bagp_di" bpmnElement="Flow_0q9bagp">
+        <di:waypoint x="188" y="177" />
+        <di:waypoint x="230" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kmzwo6_di" bpmnElement="Flow_0kmzwo6">
+        <di:waypoint x="990" y="177" />
+        <di:waypoint x="1062" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n5myat_di" bpmnElement="Flow_0n5myat">
+        <di:waypoint x="330" y="177" />
+        <di:waypoint x="590" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06au7fw_di" bpmnElement="Flow_06au7fw">
+        <di:waypoint x="690" y="177" />
+        <di:waypoint x="890" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_001ljfj_di" bpmnElement="Association_001ljfj">
+        <di:waypoint x="316" y="137" />
+        <di:waypoint x="352" y="96" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="f-pa-enter-no-ind-limit-calculation-decision" name="Факторинг. Не индикатив. Подсчет лимита в зависимости от рейтинга контрагента" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.7.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <decision id="f-pa-enter-no-ind-limit-calculation-decision-key" name="contragent-limit (подсчет лимита в зависимости от рейтинга контрагента)" camunda:versionTag="v1">
+    <informationRequirement id="InformationRequirement_13vrfe1">
+      <requiredInput href="#InputData_14bgwa2" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1fbkxbm">
+      <requiredInput href="#InputData_16xjn3a" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_19ijxfb" hitPolicy="COLLECT" biodi:annotationsWidth="400">
+      <input id="InputClause_0jbdnoh" label="contragent-category" camunda:inputVariable="contragent-category">
+        <inputExpression id="LiteralExpression_00rhmd5" typeRef="string" />
+      </input>
+      <output id="OutputClause_1dt95fv" label="product-type" name="product-type" typeRef="string" />
+      <output id="OutputClause_0m1thpr" label="f-ratio" name="f-ratio" typeRef="double" biodi:width="192" />
+      <output id="OutputClause_04m0ajs" label="k-ratio" name="k-ratio" typeRef="double" />
+      <output id="OutputClause_15ylcqa" label="limit" name="limit" typeRef="double" />
+      <rule id="DecisionRule_1hkiffp">
+        <inputEntry id="UnaryTests_01riaw6">
+          <text>"A"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cuu3p5">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cdgxg0">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tx81s9">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vpqx4c">
+          <text>60</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cf35hm">
+        <inputEntry id="UnaryTests_1144tcb">
+          <text>"A"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jpo6gh">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1r44sfd">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bhlvd2">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03tfejj">
+          <text>9</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qt6g2z">
+        <inputEntry id="UnaryTests_0yy5eop">
+          <text>"A-"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1far58n">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0int37s">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1n7hram">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0omih8f">
+          <text>60</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qoigph">
+        <inputEntry id="UnaryTests_0eiir0t">
+          <text>"A-"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1efjdph">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07ddxp0">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18pczue">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1td6c1q">
+          <text>9</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s2ahl4">
+        <inputEntry id="UnaryTests_114btmc">
+          <text>"B1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0efp5qs">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gsd7qy">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13xbl8j">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o5nd7y">
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mpek49">
+        <inputEntry id="UnaryTests_0cubvjh">
+          <text>"B1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ho0983">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k7oqz0">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0j27hku">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s5seh1">
+          <text>7.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_140wsll">
+        <inputEntry id="UnaryTests_1etg3pw">
+          <text>"B2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00by7se">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vwcmfx">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1iw8lkr">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07s6tp7">
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1utsgxv">
+        <inputEntry id="UnaryTests_1q6pxiq">
+          <text>"B2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o1alyr">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_182cv2t">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ymnqa3">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0230k62">
+          <text>7.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r4wg1r">
+        <inputEntry id="UnaryTests_1qhofg2">
+          <text>"B3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03aqay3">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cg7d76">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01qm02i">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_093djc0">
+          <text>40</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hrdhfb">
+        <inputEntry id="UnaryTests_18hg45q">
+          <text>"B3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mcp1zy">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0iz2y01">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rosjaa">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xvvnfh">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ajpk6v">
+        <inputEntry id="UnaryTests_0lp8oss">
+          <text>"B-1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r5fgez">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dkb67q">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vu6ak4">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1njih7k">
+          <text>30</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00d29nm">
+        <inputEntry id="UnaryTests_16frhzq">
+          <text>"B-1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07d4gc8">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1c3q8g6">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1o6xtye">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02ekm50">
+          <text>4.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rm3vb7">
+        <inputEntry id="UnaryTests_17z4iiu">
+          <text>"B-2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07j8di8">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ht7h3p">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mjd3ed">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ole85j">
+          <text>20</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vurn38">
+        <inputEntry id="UnaryTests_1q77kzs">
+          <text>"B-2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0sq54p4">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0phlprn">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1amlft0">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1b0hazi">
+          <text>3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pwnv40">
+        <inputEntry id="UnaryTests_1bnl513">
+          <text>"B-3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_014nsi8">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a75qov">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1w5eb8u">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qfzvfk">
+          <text>20</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0roixpk">
+        <inputEntry id="UnaryTests_0jkua97">
+          <text>"B-3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12vme37">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_128bym3">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x6ylsn">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ysdhjk">
+          <text>3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01c21v5">
+        <inputEntry id="UnaryTests_1aynsce">
+          <text>"C1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tji4t0">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10gwzxw">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16xee4y">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19i3d7v">
+          <text>14</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oc2b6b">
+        <inputEntry id="UnaryTests_18jk6m6">
+          <text>"C1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0aeid9x">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0r4s7is">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0el9gjw">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05gl5g5">
+          <text>2.1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ihpod2">
+        <inputEntry id="UnaryTests_1w5sie8">
+          <text>"C2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_139ylas">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1n27la8">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ximno1">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vk8q8f">
+          <text>10.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1eels4b">
+        <inputEntry id="UnaryTests_0sqkocm">
+          <text>"C2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ffyr20">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_056mwm3">
+          <text>0.2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ls0n5d">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0yskdzj">
+          <text>2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14rh9hw">
+        <inputEntry id="UnaryTests_17xhln1">
+          <text>"C3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ko01ca">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vint2q">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0csyz2i">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lgeo4n">
+          <text>10.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gwzmoe">
+        <inputEntry id="UnaryTests_1xdbzid">
+          <text>"С3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s8o9pg">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0krvy8y">
+          <text>0.2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cbavzy">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jkh6on">
+          <text>2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ii88pj">
+        <inputEntry id="UnaryTests_0op24o3">
+          <text>"C-1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vom39h">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mgcpxn">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y8lhax">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rworcf">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1d47nb4">
+        <inputEntry id="UnaryTests_1ts6t83">
+          <text>"C-1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kut2t3">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_004vgh8">
+          <text>0.2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19ccqma">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1t1kj0x">
+          <text>2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05v2rbx">
+        <inputEntry id="UnaryTests_18u4xue">
+          <text>"C-2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13xhpcm">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1sxgwsp">
+          <text>1.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15oe99c">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16maxh3">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_111hw8f">
+        <inputEntry id="UnaryTests_0f4nza2">
+          <text>"C-2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gfj46k">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0y4iu4p">
+          <text>0.2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qcuhoz">
+          <text>0.5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cfzd5w">
+          <text>2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qnqqal">
+        <inputEntry id="UnaryTests_0m1mpc0">
+          <text>"C-3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ektujb">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0crzw7p">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i4dkik">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wripnb">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uzmykh">
+        <description>equals "stop"</description>
+        <inputEntry id="UnaryTests_0416daq">
+          <text>"C-3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bgy65w">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ed47ut">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0k6wz5s">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ty8738">
+          <text>-1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fixt4p">
+        <inputEntry id="UnaryTests_10tm3nm">
+          <text>"D1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ckq33h">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vwjmu8">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rq5hva">
+          <text>0.3</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x3yb1e">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18ujh6e">
+        <description>equals "stop"</description>
+        <inputEntry id="UnaryTests_0669c9r">
+          <text>"D1"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16ekmhz">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x2fyrf">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w08pye">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nhr6wl">
+          <text>-1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_183em0w">
+        <inputEntry id="UnaryTests_0pjg78a">
+          <text>"D2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a0mv0v">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0sdthjn">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w44wkg">
+          <text>0.2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rrvm9n">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cy5ryr">
+        <description>equals "stop"</description>
+        <inputEntry id="UnaryTests_18bx8vg">
+          <text>"D2"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14v9q6l">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pcgk4a">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03biess">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15ftbnm">
+          <text>-1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vse6zq">
+        <inputEntry id="UnaryTests_0nnfkk1">
+          <text>"D3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03hojpb">
+          <text>"Online"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14uk636">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ar6rdz">
+          <text>0.2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19c7ry3">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jcmr5d">
+        <description>equals "stop"</description>
+        <inputEntry id="UnaryTests_1g4ynul">
+          <text>"D3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0maa7p6">
+          <text>"Light"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qcopsm">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gxzii7">
+          <text>-1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02y37sx">
+          <text>-1</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_14bgwa2" name="contragent_category (категория контрагента)" />
+  <inputData id="InputData_16xjn3a" name="product_type (тип продукта)" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_1fuqmvi" dmnElementRef="f-pa-enter-no-ind-limit-calculation-decision-key">
+        <dc:Bounds height="80" width="180" x="220" y="230" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_07q3ps0" dmnElementRef="InputData_14bgwa2">
+        <dc:Bounds height="45" width="125" x="157" y="77" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1dmi7fb" dmnElementRef="InformationRequirement_13vrfe1">
+        <di:waypoint x="220" y="122" />
+        <di:waypoint x="280" y="210" />
+        <di:waypoint x="280" y="230" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0a7rsxg" dmnElementRef="InputData_16xjn3a">
+        <dc:Bounds height="45" width="125" x="337" y="77" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0smug24" dmnElementRef="InformationRequirement_1fbkxbm">
+        <di:waypoint x="400" y="122" />
+        <di:waypoint x="340" y="210" />
+        <di:waypoint x="340" y="230" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
